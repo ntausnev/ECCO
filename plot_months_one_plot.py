@@ -89,6 +89,7 @@ def shift_longitude(arr_src, step):
 def main():
 
     month_s = 7      # July 2009/ from 1 to 24
+    month_s = 15     # Test
     month_e = 16      # April 2010
 
     DATA_IN = "./DATA_IN/"
@@ -102,9 +103,11 @@ def main():
     fmm = open("f_min_max", "w")  # file max and min wind speed
     file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne' + ".pdf"
 
+    month_total = 0
     for month in range( month_s, month_e + 1  ):
 
 #     file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + obs_mon[month-1] + ".pdf"
+      month_total = month_total + 1
 
       file_g = DATA_IN + "2009-2010_cal.usurf_g_2x2.nc"
       file_h = DATA_IN + "2009-2010_cal.usurf_h_2x2.nc"
@@ -126,9 +129,10 @@ def main():
   #   ax0.axis("off")
   #   fig1.set_size_inches(7.0, 11.0)
 
-      fig = plt.figure(figsize=(8.0, 11.0))
-      ax2 = fig.add_axes([0.05, 0.15,  0.9, 0.25])
-      ax1 = fig.add_axes([0.05, 0.6,  0.9, 0.25])
+      if month_total == 1 :
+        fig = plt.figure(figsize=(8.0, 11.0))
+        ax2 = fig.add_axes([0.05, 0.15,  0.9, 0.25])
+        ax1 = fig.add_axes([0.05, 0.6,  0.9, 0.25])
   #   title = ax1.set_title("My plot", fontsize='large')
 
 
@@ -198,9 +202,10 @@ def main():
       fmm.write(" Max V wind over ocean h {:5.2f} ".format(wmax_h))
 
       fmm.write(" \n ")
-      plt.savefig(file_out_pdf)
+#     plt.savefig(file_out_pdf)
 
     # Display the figure
+    plt.savefig(file_out_pdf)
     plt.show()
     plt.close()
     fmm.close()
