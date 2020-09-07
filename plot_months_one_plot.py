@@ -204,8 +204,9 @@ def main():
       fmm.write(" \n ")
 #     plt.savefig(file_out_pdf)
 
-    # Display the figure
     plt.savefig(file_out_pdf)
+
+    # Display the figure
     plt.show()
     plt.close()
     fmm.close()
