@@ -44,25 +44,25 @@ def generate_data_plot(lonsh, month, wg, wh):  # month 1-24
     time_rec = month - 1
     yg = wg[time_rec, 45, :]
     yh = wh[time_rec, 45, :]
-    print(yg)
+#   print(yg)
 
     shift = 75
     x_t = shift_longitude(x, shift)
     x_plot = np.where(x_t < 30., x_t + 360., x_t)
     y_plotg = shift_longitude(yg, shift)
     y_ploth = shift_longitude(yh, shift)
-    print("x=")
-    print(x)
-    print("x_t=")
-    print(x_t)
+#   print("x=")
+#   print(x)
+#   print("x_t=")
+#   print(x_t)
 
-    print("x_plot=")
-    print(x_plot)
-    print(yg)
+#   print("x_plot=")
+#   print(x_plot)
+#   print(yg)
     y_ocng = set_land_vals(x_plot, y_plotg)
     y_ocnh = set_land_vals(x_plot, y_ploth)
-    print("y_ocng: ")
-    print(y_ocng)
+#   print("y_ocng: ")
+#   print(y_ocng)
 
     wmean_g = np.nanmean((y_ocng))
     wmean_h = np.nanmean((y_ocnh))
@@ -115,6 +115,10 @@ def main():
         legend_dstg = ""
         legend_dsth = "E2.1-H"
 
+    list_avrs_ug = []
+    list_avrs_uh = []
+    list_avrs_vg = []
+    list_avrs_vh = []
 
     month_total = 0
     for month in range( month_s, month_e + 1  ):
@@ -139,6 +143,12 @@ def main():
       line_g = "<U 10m> = {:4.1f} m/s ".format(wmean_g)
       line_h = "<U 10m> = {:4.1f} m/s ".format(wmean_h)
 
+      line_g = ""
+      line_h = ""
+
+      list_avrs_ug.append(wmean_g) 
+      list_avrs_uh.append(wmean_h) 
+
       # Get an empty figure
   #   fig1, (ax0, ax) = plt.subplots(nrows=2)
   #   ax0.axis("off")
@@ -148,19 +158,17 @@ def main():
         fig = plt.figure(figsize=(8.0, 11.0))
         ax2 = fig.add_axes([0.05, 0.15,  0.9, 0.25])
         ax1 = fig.add_axes([0.05, 0.6,  0.9, 0.25])
-  #   title = ax1.set_title("My plot", fontsize='large')
 
 
     # Set title for the plot
       if month_total == 1 :
-#         ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean ' + obs_mon[month-1],
           ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean Jul2009-Apr2020',
                             pad=25, fontweight="bold" )
 
-          ax1.set_ylim(-8.,  6.0)
-          y_ticks = np.arange(-8, 8, 2)
-          ax1.set_yticks(y_ticks)
-          ax1.set_yticklabels([-8, -6, -4, -2, 0, 2, 4, 6, 8 ])
+      ax1.set_ylim(-8.,  6.0)
+      y_ticks = np.arange(-8, 8, 2)
+      ax1.set_yticks(y_ticks)
+      ax1.set_yticklabels([-8, -6, -4, -2, 0, 2, 4, 6, 8 ])
 
       if PLOT_ONLY_G :
           y_ocnh[:] = np.nan
@@ -199,15 +207,22 @@ def main():
       print(" Mean wind over ocean h {:5.2f} ".format(wmean_h))
       line_g = "<V 10m> = {:4.1f} m/s ".format(wmean_g)
       line_h = "<V 10m> = {:4.1f} m/s ".format(wmean_h)
+      line_g =""; line_h = ""
+      avrg_vg = np.nanmean(y_ocng)
+      avrg_vh = np.nanmean(y_ocnh)
+      print(" AVR U wind over ocean g {:5.2f} ".format(avrg_vg))
+      print(" AVR U wind over ocean h {:5.2f} ".format(avrg_vh))
+      list_avrs_vg.append(wmean_g) 
+      list_avrs_vh.append(wmean_h) 
 
     # Set title for the plot
       if month_total == 1 :
           ax2.set_title( 'E2.1 V Wind 10m Height Along Equator 2°x2° Monthly-Mean Jul2009-Apr2020',
                             pad=25, fontweight="bold" )
-          ax2.set_ylim(-6., 8.)
-          y_ticks = np.arange(-6,  10, 2)
-          ax2.set_yticks(y_ticks)
-          ax2.set_yticklabels([-6, -4, -2, 0, 2, 4, 6, 8, 10])
+      ax2.set_ylim(-6., 8.)
+      y_ticks = np.arange(-6,  10, 2)
+      ax2.set_yticks(y_ticks)
+      ax2.set_yticklabels([-6, -4, -2, 0, 2, 4, 6, 8, 10])
 
       if PLOT_ONLY_G :
           y_ocnh[:] = np.nan
@@ -219,6 +234,10 @@ def main():
 
       wmin_g = np.nanmin((y_ocng))
       wmin_h = np.nanmin((y_ocnh))
+      avrg_vg = np.nanmean(y_ocng)
+      avrg_vh = np.nanmean(y_ocnh)
+
+
       str = "\nMonth= " + obs_mon[month-1]
       fmm.write(str)
       fmm.write(" Min V wind over ocean g {:5.2f} ".format(wmin_g))
@@ -233,6 +252,41 @@ def main():
 
       fmm.write(" \n ")
 #     plt.savefig(file_out_pdf)
+    print('\nlist_avrs_ug:')
+    print("[{}]".format(', '.join(map('{:.2f}'.format, list_avrs_ug))))
+    print('\nlist_avrs_uh:')
+    print("[{}]".format(', '.join(map('{:.2f}'.format, list_avrs_uh))))
+    print('\nlist_avrs_vg:')
+    print("[{}]".format(', '.join(map('{:.2f}'.format, list_avrs_vg))))
+    print('\nlist_avrs_vh:')
+    print("[{}]".format(', '.join(map('{:.2f}'.format, list_avrs_vh))))
+
+    avr_avr_ug = np.mean(list_avrs_ug)
+    avr_avr_uh = np.mean(list_avrs_uh)
+    avr_avr_vg = np.mean(list_avrs_vg)
+    avr_avr_vh = np.mean(list_avrs_vh)
+
+    print("\navr_avr_ug = {:.2f}, avr_avr_uh = {:.2f}".format(avr_avr_ug,avr_avr_uh))
+    print("\navr_avr_vg = {:.2f}, avr_avr_vh = {:.2f}".format(avr_avr_vg,avr_avr_vh))
+
+    line_ug = "<U 10m> = {:4.1f} m/s ".format(avr_avr_ug)
+    line_vg = "<V 10m> = {:4.1f} m/s ".format(avr_avr_vg)
+
+
+    line_uh = "<U 10m> = {:4.1f} m/s ".format(avr_avr_uh)
+    line_vh = "<V 10m> = {:4.1f} m/s ".format(avr_avr_vh)
+
+    if PLOT_ONLY_G :
+        line_u = line_ug
+        line_v = line_vg
+        color_p = "red"
+    else:
+        line_u = line_uh
+        line_v = line_vh
+        color_p = "green"
+
+    ax1.text(0.35, -0.22, line_u, color=color_p, transform=ax1.transAxes)
+    ax2.text(0.35, -0.22, line_v, color=color_p, transform=ax2.transAxes)
 
     plt.savefig(file_out_pdf)
 
