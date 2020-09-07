@@ -89,8 +89,12 @@ def shift_longitude(arr_src, step):
 def main():
 
     month_s = 7      # July 2009/ from 1 to 24
-    month_s = 15     # Test
+#   month_s = 15     # Test
     month_e = 16      # April 2010
+
+    PLOT_ONLY_G = True
+#   PLOT_ONLY_G = False           # comment out if you need ocean H plot
+    PLOT_ONLY_H= not(PLOT_ONLY_G)
 
     DATA_IN = "./DATA_IN/"
     DATA_OUT= "./DATA_OUT/"
@@ -101,7 +105,12 @@ def main():
                 "Jul2010", "Aug2010", "Sep2010", "Oct2010", "Nov2010", "Dec2010" ]
 
     fmm = open("f_min_max", "w")  # file max and min wind speed
-    file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne' + ".pdf"
+
+    if PLOT_ONLY_G :
+        file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne_G' + ".pdf"
+    else :
+        file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne_H' + ".pdf"
+
 
     month_total = 0
     for month in range( month_s, month_e + 1  ):
@@ -144,6 +153,11 @@ def main():
       ax1.set_yticks(y_ticks)
       ax1.set_yticklabels([-8, -6, -4, -2, 0, 2, 4, 6, 8 ])
 
+      if PLOT_ONLY_G :
+          y_ocnh[:] = np.nan
+      else:
+          y_ocng[:] = np.nan
+
       generate_plot(ax1, plt, x_plot, y_ocng, y_ocnh, y_zero, line_g, line_h,
                     legend_dstg, legend_dsth,y_ticks)
 
@@ -171,6 +185,7 @@ def main():
       latsh, lonsh, timeh, wh = read_section_equator(file_h, "VSURF")
       x_plot, y_ocng, y_ocnh, wmean_g, wmean_h, y_zero = \
           generate_data_plot(lonsh, month, wg, wh)
+
       print(" Mean wind over ocean g {:5.2f} ".format(wmean_g))
       print(" Mean wind over ocean h {:5.2f} ".format(wmean_h))
       line_g = "<V 10m> = {:4.1f} m/s ".format(wmean_g)
@@ -183,6 +198,11 @@ def main():
       y_ticks = np.arange(-6,  10, 2)
       ax2.set_yticks(y_ticks)
       ax2.set_yticklabels([-6, -4, -2, 0, 2, 4, 6, 8, 10])
+
+      if PLOT_ONLY_G :
+          y_ocnh[:] = np.nan
+      else:
+          y_ocng[:] = np.nan
 
       generate_plot(ax2, plt, x_plot, y_ocng, y_ocnh, y_zero, line_g, line_h,
                     legend_dstg, legend_dsth,y_ticks)
