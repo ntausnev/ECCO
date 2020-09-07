@@ -93,7 +93,7 @@ def main():
     month_e = 16      # April 2010
 
     PLOT_ONLY_G = True
-    PLOT_ONLY_G = False           # comment out if you need ocean H plot
+#   PLOT_ONLY_G = False           # comment out if you need ocean H plot
     PLOT_ONLY_H= not(PLOT_ONLY_G)
 
     DATA_IN = "./DATA_IN/"
@@ -108,8 +108,12 @@ def main():
 
     if PLOT_ONLY_G :
         file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne_G' + ".pdf"
+        legend_dstg = "E2.1-G"
+        legend_dsth = ""
     else :
         file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne_H' + ".pdf"
+        legend_dstg = ""
+        legend_dsth = "E2.1-H"
 
 
     month_total = 0
@@ -122,8 +126,10 @@ def main():
       file_h = DATA_IN + "2009-2010_cal.usurf_h_2x2.nc"
       latsg, lonsg, timeg, wg = read_section_equator(file_g, "USURF")
       latsh, lonsh, timeh, wh = read_section_equator(file_h, "USURF")
-      legend_dstg = "E2.1-G"
-      legend_dsth = "E2.1-H"
+
+      if month_total > 1 :
+          legend_dstg = ""
+          legend_dsth = ""
 
       # Generate data for plots
       x_plot, y_ocng, y_ocnh, wmean_g, wmean_h, y_zero = \
