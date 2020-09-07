@@ -93,7 +93,7 @@ def main():
     month_e = 16      # April 2010
 
     PLOT_ONLY_G = True
-#   PLOT_ONLY_G = False           # comment out if you need ocean H plot
+    PLOT_ONLY_G = False           # comment out if you need ocean H plot
     PLOT_ONLY_H= not(PLOT_ONLY_G)
 
     DATA_IN = "./DATA_IN/"
@@ -146,12 +146,13 @@ def main():
 
 
     # Set title for the plot
-      ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean ' + obs_mon[month-1],
+      if month_total == 1 :
+          ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean ' + obs_mon[month-1],
                             pad=25, fontweight="bold" )
-      ax1.set_ylim(-8.,  6.0)
-      y_ticks = np.arange(-8, 8, 2)
-      ax1.set_yticks(y_ticks)
-      ax1.set_yticklabels([-8, -6, -4, -2, 0, 2, 4, 6, 8 ])
+          ax1.set_ylim(-8.,  6.0)
+          y_ticks = np.arange(-8, 8, 2)
+          ax1.set_yticks(y_ticks)
+          ax1.set_yticklabels([-8, -6, -4, -2, 0, 2, 4, 6, 8 ])
 
       if PLOT_ONLY_G :
           y_ocnh[:] = np.nan
@@ -235,6 +236,6 @@ def main():
 if __name__ == "__main__":  # ky-ky
     # execute only if run as a script
     main()
-    print(" \n*** End script *** \n")
+    print(" \n+++++ End script +++++ \n")
 
 # Last line of script
