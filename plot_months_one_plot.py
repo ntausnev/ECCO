@@ -93,7 +93,7 @@ def main():
     month_e = 16      # April 2010
 
     PLOT_ONLY_G = True
-#   PLOT_ONLY_G = False           # comment out if you need ocean H plot
+    PLOT_ONLY_G = False           # comment out if you need ocean H plot
     PLOT_ONLY_H= not(PLOT_ONLY_G)
 
     DATA_IN = "./DATA_IN/"
@@ -153,8 +153,10 @@ def main():
 
     # Set title for the plot
       if month_total == 1 :
-          ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean ' + obs_mon[month-1],
+#         ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean ' + obs_mon[month-1],
+          ax1.set_title( 'E2.1 U Wind 10m Height Along Equator 2°x2 Monthly-Mean Jul2009-Apr2020',
                             pad=25, fontweight="bold" )
+
           ax1.set_ylim(-8.,  6.0)
           y_ticks = np.arange(-8, 8, 2)
           ax1.set_yticks(y_ticks)
@@ -199,12 +201,13 @@ def main():
       line_h = "<V 10m> = {:4.1f} m/s ".format(wmean_h)
 
     # Set title for the plot
-      ax2.set_title( 'E2.1 V Wind 10m Height Along Equator 2°x2° Mohly-Mean ' + obs_mon[month-1],
+      if month_total == 1 :
+          ax2.set_title( 'E2.1 V Wind 10m Height Along Equator 2°x2° Monthly-Mean Jul2009-Apr2020',
                             pad=25, fontweight="bold" )
-      ax2.set_ylim(-6., 8.)
-      y_ticks = np.arange(-6,  10, 2)
-      ax2.set_yticks(y_ticks)
-      ax2.set_yticklabels([-6, -4, -2, 0, 2, 4, 6, 8, 10])
+          ax2.set_ylim(-6., 8.)
+          y_ticks = np.arange(-6,  10, 2)
+          ax2.set_yticks(y_ticks)
+          ax2.set_yticklabels([-6, -4, -2, 0, 2, 4, 6, 8, 10])
 
       if PLOT_ONLY_G :
           y_ocnh[:] = np.nan
