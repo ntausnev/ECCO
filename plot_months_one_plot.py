@@ -107,11 +107,11 @@ def main():
     fmm = open("f_min_max", "w")  # file max and min wind speed
 
     if PLOT_ONLY_G :
-        file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne_G' + ".pdf"
+        file_out_pdf = DATA_OUT + "E2.1-G Wind Jul2009-Apr2020 10 Monthly Curves" + ".pdf"
         legend_dstg = "E2.1-G"
         legend_dsth = ""
     else :
-        file_out_pdf = DATA_OUT + 'E2.1 Wind U V ' + 'allInOne_H' + ".pdf"
+        file_out_pdf = DATA_OUT + "E2.1-H Wind Jul2009-Apr2020 10 Monthly Curves" + ".pdf"
         legend_dstg = ""
         legend_dsth = "E2.1-H"
 
