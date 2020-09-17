@@ -308,6 +308,7 @@ if __name__ == "__main__":  # ky-ky
   # execute only if run as a script
   main()
   print(" \n+++++ End script +++++ \n")
-#   Last line in the file
+
+#   EOF - Last line in the file
 
 # Last line of script
