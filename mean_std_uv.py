@@ -90,11 +90,7 @@ def shift_longitude(arr_src, step):
   return arr_out
 
 
-def main():
-
-  month_s = 7  # July 2009/ from 1 to 24
-  #   month_s = 15     # Test
-  month_e = 16  # April 2010
+def mean_std_uv(month_s, month_e):
 
   DATA_IN = "./DATA_IN/"
 
@@ -119,6 +115,12 @@ def main():
       # creating an empty 2d array of float32 type
       ug10 =  np.empty((0,y_ocng.size),np.float32)
       uh10 =  np.empty((0,y_ocnh.size),np.float32)
+#### TEST:
+    if month == 15:
+      print("\nMonth={} U wind over ocean g ".format(month))
+      print(y_ocng)
+      print("\nMonth={} U wind over ocean h ".format(month))
+      print(y_ocnh)
 
     ug10 = np.vstack( (ug10, y_ocng ))
     uh10 = np.vstack( (uh10, y_ocnh ))
@@ -137,6 +139,13 @@ def main():
       # creating an empty 2d array of float32 type
       vg10 =  np.empty((0,y_ocng.size),np.float32)
       vh10 =  np.empty((0,y_ocnh.size),np.float32)
+#### TEST:
+    if month == 15:
+      print("\nMonth={} V wind over ocean g ".format(month))
+      print(y_ocng)
+      print("\nMonth={} V wind over ocean h ".format(month))
+      print(y_ocnh)
+
 
     vg10 = np.vstack( (vg10, y_ocng ))
     vh10 = np.vstack( (vh10, y_ocnh ))
@@ -154,41 +163,51 @@ def main():
   matrix_print(mat=uh10_t,fmt=".2E",title="uh10_t")
   matrix_print(mat=vh10_t,fmt=".2E",title="vh10_t")
 
-  ug10_mean = np.mean(ug10_t,axis=1)
-  vg10_mean = np.mean(vg10_t,axis=1)
+  ug_mean = np.mean(ug10_t,axis=1)
+  vg_mean = np.mean(vg10_t,axis=1)
 
-  uh10_mean = np.mean(uh10_t,axis=1)
-  vh10_mean = np.mean(vh10_t,axis=1)
+  uh_mean = np.mean(uh10_t,axis=1)
+  vh_mean = np.mean(vh10_t,axis=1)
 
   np.set_printoptions(precision=2)
-  print("\nug10_mean =")
-  print(ug10_mean)
-  print("\nvg10_mean =")
-  print(vg10_mean)
+  print("\nug_mean =")
+  print(ug_mean)
+  print("\nvg_mean =")
+  print(vg_mean)
 
-  print("\nuh10_mean =")
-  print(uh10_mean)
-  print("\nvh10_mean =")
-  print(vh10_mean)
+  print("\nuh_mean =")
+  print(uh_mean)
+  print("\nvh_mean =")
+  print(vh_mean)
 
-  ug10_std = np.std(ug10_t,axis=1)
-  vg10_std = np.std(vg10_t,axis=1)
+  ug_std = np.std(ug10_t,axis=1)
+  vg_std = np.std(vg10_t,axis=1)
 
-  uh10_std = np.std(uh10_t,axis=1)
-  vh10_std = np.std(vh10_t,axis=1)
+  uh_std = np.std(uh10_t,axis=1)
+  vh_std = np.std(vh10_t,axis=1)
 
-  print("\nug10_std =")
-  print(ug10_std)
-  print("\nvg10_std =")
-  print(vg10_std)
-  print("\nuh10_std =")
-  print(uh10_std)
-  print("\nvh10_std =")
-  print(vh10_std)
+  print("\nug_std =")
+  print(ug_std)
+  print("\nvg_std =")
+  print(vg_std)
+  print("\nuh_std =")
+  print(uh_std)
+  print("\nvh_std =")
+  print(vh_std)
+
+  return ug_mean, vg_mean, ug_std, vg_std, uh_mean, vh_mean, uh_std, vh_std
+
+def main():
+  # execute only if run as a script
+  month_s = 7  # July 2009/ from 1 to 24
+  #   month_s = 15     # Test
+  month_e = 16  # April 2010
+
+  ug_mean, vg_mean, ug_std, vg_std, uh_mean, vh_mean, uh_std, vh_std = mean_std_uv(month_s, month_e)
 
 if __name__ == "__main__":  # ky-ky
-  # execute only if run as a script
   main()
+
   print(" \n+++++ End script +++++ \n")
 
 #Last line of script
