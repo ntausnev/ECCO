@@ -148,11 +148,11 @@ def main():
   uh10_t = uh10.T   # Transpose matrix
   vh10_t = vh10.T   # Transpose matrix
 
-  matrix_print(mat=ug10_t,fmt=".2E")
-  matrix_print(mat=vg10_t,fmt=".2E")
+  matrix_print(mat=ug10_t,fmt=".2E",title="ug10_t")
+  matrix_print(mat=vg10_t,fmt=".2E",title="vg10_t")
 
-  matrix_print(mat=uh10_t,fmt=".2E")
-  matrix_print(mat=vh10_t,fmt=".2E")
+  matrix_print(mat=uh10_t,fmt=".2E",title="uh10_t")
+  matrix_print(mat=vh10_t,fmt=".2E",title="vh10_t")
 
   ug10_mean = np.mean(ug10_t,axis=1)
   vg10_mean = np.mean(vg10_t,axis=1)
