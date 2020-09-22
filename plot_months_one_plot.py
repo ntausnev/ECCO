@@ -4,14 +4,17 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
+# pylint: disable="indentation-is-not-a-multiple-of-four-[pycodestyle]"
+# pylint: disable=E111
 
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib.ticker as ticker
+
+#import matplotlib.ticker as ticker
 
 from set_nan_values import set_land_vals
-from matplotlib.ticker import (MultipleLocator, FormatStrFormatter,
-                               AutoMinorLocator)
+#from matplotlib.ticker import (MultipleLocator, FormatStrFormatter,
+#                              AutoMinorLocator)
 
 # http://code.google.com/p/netcdf4-python/
 from netCDF4 import Dataset
@@ -94,7 +97,7 @@ def main():
   month_e = 16  # April 2010
 
   PLOT_ONLY_G = True
-  PLOT_ONLY_G = False  # comment out if you need ocean H plot
+  # PLOT_ONLY_G = False  # comment out if you need ocean H plot
   PLOT_ONLY_H = not (PLOT_ONLY_G)
 
   DATA_IN = "./DATA_IN/"
@@ -113,7 +116,7 @@ def main():
     file_out_pdf = DATA_OUT + "E2.1-G Wind Jul2009-Apr2020 10 Monthly Curves" + ".pdf"
     legend_dstg = "E2.1-G"
     legend_dsth = ""
-  else:
+  if PLOT_ONLY_H:
     file_out_pdf = DATA_OUT + "E2.1-H Wind Jul2009-Apr2020 10 Monthly Curves" + ".pdf"
     legend_dstg = ""
     legend_dsth = "E2.1-H"
@@ -309,6 +312,6 @@ if __name__ == "__main__":  # ky-ky
   main()
   print(" \n+++++ End script +++++ \n")
 
-#   EOF - Last line in the file
+#Last line of script
 
-# Last line of script
+#EOF - Last line in the file
