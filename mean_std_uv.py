@@ -195,7 +195,7 @@ def mean_std_uv(month_s, month_e):
   print("\nvh_std =")
   print(vh_std)
 
-  return ug_mean, vg_mean, ug_std, vg_std, uh_mean, vh_mean, uh_std, vh_std
+  return x_plot, ug_mean, vg_mean, ug_std, vg_std, uh_mean, vh_mean, uh_std, vh_std
 
 def main():
   # execute only if run as a script
@@ -203,7 +203,8 @@ def main():
   #   month_s = 15     # Test
   month_e = 16  # April 2010
 
-  ug_mean, vg_mean, ug_std, vg_std, uh_mean, vh_mean, uh_std, vh_std = mean_std_uv(month_s, month_e)
+  x_plot, ug_mean, vg_mean, ug_std, vg_std, \
+          uh_mean, vh_mean, uh_std, vh_std = mean_std_uv(month_s, month_e)
 
 if __name__ == "__main__":  # ky-ky
   main()
