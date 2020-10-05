@@ -5,7 +5,7 @@ def generate_plot(ax, plt, x_plot, y_ocng, y_ocnh, y_zero, \
 
   # Generate the plot
   ax.plot(x_plot, y_ocng, lw=1, label=legend_dstg, color="red")
-  ax.plot(x_plot, y_ocng, color="red", marker='o', ms=3.)
+  ax.plot(x_plot, y_ocng, color="red", marker='o', ms=2.)
   ax.plot(x_plot, y_zero, lw=0.5, color="black", linestyle="--")
 
   ax.plot(x_plot, y_ocnh, lw=1, label=legend_dsth, color="green")
